@@ -18,7 +18,7 @@
 				<thead>
 					<tr>
 						<td class="text-center"><b>ID</b></td>
-						<td><b>Team</b></td>
+						<td><b>Participant</b></td>
 						<td><b>Challenge</b></td>
 						<td><b>Submission</b></td>
 						<td class="text-center"><b>Date</b></td>
@@ -32,7 +32,7 @@
 							{{ solve.id }}
 						</td>
 						<td class="team" id="{{ solve.teamid }}">
-							<a href="{{ request.script_root }}/admin/team/{{ solve.teamid }}">{{ solve.team_name }}</a>
+							<a href="{{ request.script_root }}/admin/participant/{{ solve.teamid }}">{{ solve.team_name }}</a>
 						</td>
 						<td class="chal" id="{{ solve.chalid }}">
 							{{ solve.chal_name }}

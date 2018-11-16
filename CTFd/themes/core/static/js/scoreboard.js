@@ -6,7 +6,7 @@ function updatescores () {
     for (var i = 0; i < teams['standings'].length; i++) {
         var row="<tr>\n" +
             "<th scope=\"row\" class=\"text-center\">{0}</th>".format(i + 1) +
-            "<td><a href=\"{0}/team/{1}\">{2}</a></td>".format(script_root, teams['standings'][i].id, htmlentities(teams['standings'][i].team)) +
+            "<td><a href=\"{0}/participant/{1}\">{2}</a></td>".format(script_root, teams['standings'][i].id, htmlentities(teams['standings'][i].team)) +
             "<td>{0}</td>".format(teams['standings'][i].score) +
             "</tr>";
         table.append(row);

@@ -11,8 +11,8 @@ import re
 admin_teams = Blueprint('admin_teams', __name__)
 
 
-@admin_teams.route('/admin/teams', defaults={'page': '1'})
-@admin_teams.route('/admin/teams/<int:page>')
+@admin_teams.route('/admin/participants', defaults={'page': '1'})
+@admin_teams.route('/admin/participants/<int:page>')
 @admins_only
 def admin_teams_view(page):
     q = request.args.get('q')
@@ -34,7 +34,7 @@ def admin_teams_view(page):
             teams = Teams.query.filter(Teams.affiliation.like('%{}%'.format(q))).order_by(Teams.id.asc()).all()
         elif field == 'country':
             teams = Teams.query.filter(Teams.country.like('%{}%'.format(q))).order_by(Teams.id.asc()).all()
-        return render_template('admin/teams.html', teams=teams, pages=None, curr_page=None, q=q, field=field)
+        return render_template('admin/participants.html', teams=teams, pages=None, curr_page=None, q=q, field=field)
 
     page = abs(int(page))
     results_per_page = 50
@@ -44,10 +44,10 @@ def admin_teams_view(page):
     teams = Teams.query.order_by(Teams.id.asc()).slice(page_start, page_end).all()
     count = db.session.query(db.func.count(Teams.id)).first()[0]
     pages = int(count / results_per_page) + (count % results_per_page > 0)
-    return render_template('admin/teams.html', teams=teams, pages=pages, curr_page=page)
+    return render_template('admin/participants.html', teams=teams, pages=pages, curr_page=page)
 
 
-@admin_teams.route('/admin/team/new', methods=['POST'])
+@admin_teams.route('/admin/participant/new', methods=['POST'])
 @admins_only
 def admin_create_team():
     name = request.form.get('name', None)
@@ -106,7 +106,7 @@ def admin_create_team():
     return jsonify({'data': ['success']})
 
 
-@admin_teams.route('/admin/team/<int:teamid>', methods=['GET', 'POST'])
+@admin_teams.route('/admin/participant/<int:teamid>', methods=['GET', 'POST'])
 @admins_only
 def admin_team(teamid):
     user = Teams.query.filter_by(id=teamid).first_or_404()
@@ -124,7 +124,7 @@ def admin_team(teamid):
         awards = Awards.query.filter_by(teamid=teamid).order_by(Awards.date.asc()).all()
         score = user.score(admin=True)
         place = user.place(admin=True)
-        return render_template('admin/team.html', solves=solves, team=user, addrs=addrs, score=score, missing=missing,
+        return render_template('admin/participant.html', solves=solves, team=user, addrs=addrs, score=score, missing=missing,
                                place=place, wrong_keys=wrong_keys, awards=awards)
     elif request.method == 'POST':
         name = request.form.get('name', None)
@@ -179,7 +179,7 @@ def admin_team(teamid):
             return jsonify({'data': ['success']})
 
 
-@admin_teams.route('/admin/team/<int:teamid>/mail', methods=['POST'])
+@admin_teams.route('/admin/participant/<int:teamid>/mail', methods=['POST'])
 @admins_only
 @ratelimit(method="POST", limit=10, interval=60)
 def email_user(teamid):
@@ -198,7 +198,7 @@ def email_user(teamid):
         })
 
 
-@admin_teams.route('/admin/team/<int:teamid>/ban', methods=['POST'])
+@admin_teams.route('/admin/participant/<int:teamid>/ban', methods=['POST'])
 @admins_only
 def ban(teamid):
     user = Teams.query.filter_by(id=teamid).first_or_404()
@@ -208,7 +208,7 @@ def ban(teamid):
     return redirect(url_for('admin_scoreboard.admin_scoreboard_view'))
 
 
-@admin_teams.route('/admin/team/<int:teamid>/unban', methods=['POST'])
+@admin_teams.route('/admin/participant/<int:teamid>/unban', methods=['POST'])
 @admins_only
 def unban(teamid):
     user = Teams.query.filter_by(id=teamid).first_or_404()
@@ -218,7 +218,7 @@ def unban(teamid):
     return redirect(url_for('admin_scoreboard.admin_scoreboard_view'))
 
 
-@admin_teams.route('/admin/team/<int:teamid>/delete', methods=['POST'])
+@admin_teams.route('/admin/participant/<int:teamid>/delete', methods=['POST'])
 @admins_only
 def delete_team(teamid):
     try:
@@ -328,7 +328,7 @@ def delete_award(award_id):
     return '1'
 
 
-@admin_teams.route('/admin/teams/<int:teamid>/awards', methods=['GET'])
+@admin_teams.route('/admin/participants/<int:teamid>/awards', methods=['GET'])
 @admins_only
 def admin_awards(teamid):
     awards = Awards.query.filter_by(teamid=teamid).all()

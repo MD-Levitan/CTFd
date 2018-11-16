@@ -6,8 +6,8 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>Teams
-			<span class="create-team" role="button" data-toggle="tooltip" title="Create Team">
+		<h1>Participants
+			<span class="create-team" role="button" data-toggle="tooltip" title="Create Participant">
 				<i class="btn-fa fas fa-plus-circle"></i>
 			</span>
 		</h1>
@@ -18,7 +18,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2>Email Team</h2>
+				<h2>Email Participant</h2>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -44,19 +44,19 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2 class="modal-action">Edit Team</h2>
+				<h2 class="modal-action">Edit Participant</h2>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body clearfix">
-				<form method="POST" action="{{ request.script_root }}/admin/teams/">
+				<form method="POST" action="{{ request.script_root }}/admin/participants/">
 					<input type="hidden" name="nonce" value="{{ nonce }}">
 					<input type="hidden" name="id">
 					<div class="form-group">
-						<label for="name">Team Name</label>
+						<label for="name">Participant Name</label>
 						<input type="text" class="form-control" name="name" id="name"
-							   placeholder="Enter new team name" required>
+							   placeholder="Enter new participant name" required>
 					</div>
 					<div class="form-group">
 						<label for="email">Email</label>
@@ -78,7 +78,7 @@
 							   placeholder="Enter affiliation">
 					</div>
 					<div class="form-group">
-						<label for="affiliation">Country</label>
+						<label for="affiliation">School</label>
 						<input type="text" class="form-control" name="country" id="country"
 							   placeholder="Enter country">
 					</div>
@@ -112,7 +112,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			{% if q and field%}
-			<h4 class="text-center">Searching for teams with {{field}} matching {{q}}</h4>
+			<h4 class="text-center">Searching for participants with {{field}} matching {{q}}</h4>
 			{% endif %}
 
 			<form method="GET" class="form-inline">
@@ -123,7 +123,7 @@
 							<option value="id" {% if field == 'id' %}selected{% endif %}>ID</option>
 							<option value="email" {% if field == 'email' %}selected{% endif %}>Email</option>
 							<option value="affiliation" {% if field == 'affiliation' %}selected{% endif %}>Affiliation</option>
-							<option value="country" {% if field == 'country' %}selected{% endif %}>Country</option>
+							<option value="country" {% if field == 'country' %}selected{% endif %}>School</option>
 					  </select>
 					</div>
 					<div class="form-group col-md-8">
@@ -143,7 +143,7 @@
 					<tr>
 						<td width="10px" class="text-center"><b>ID</b>
 						</td>
-						<td class="text-center"><b>Team</b>
+						<td class="text-center"><b>Participant</b>
 						</td>
 						<td class="d-none d-md-table-cell d-lg-table-cell text-center"><b>Email</b>
 						</td>
@@ -151,7 +151,7 @@
 						</td>
 						<td class="d-none"><b>Affiliation</b>
 						</td>
-						<td class="d-none"><b>Country</b>
+						<td class="d-none"><b>School</b>
 						</td>
 						<td class="text-center"><b>Admin</b>
 						</td>
@@ -167,7 +167,7 @@
 					{% for team in teams %}
 					<tr name="{{ team.id }}">
 						<td class="team-id" value="{{ team.id }}">{{ team.id }}</td>
-						<td class="team-name" value="{{ team.name }}"><a href="{{ request.script_root }}/admin/team/{{ team.id }}">{{ team.name | truncate(32) }}</a>
+						<td class="team-name" value="{{ team.name }}"><a href="{{ request.script_root }}/admin/participant/{{ team.id }}">{{ team.name | truncate(32) }}</a>
 						</td>
 						<td class="team-email d-none d-md-table-cell d-lg-table-cell" value="{{ team.email }}">{{ team.email | truncate(32) }}</td>
 						<td class="team-website d-none text-center">
@@ -223,15 +223,15 @@
 			{% if pages > 1 %}
 			<div class="text-center">Page
 				<br>
-				{% if curr_page != 1 %}<a href="{{ request.script_root }}/admin/teams/{{ curr_page-1 }}">&lt;&lt;&lt;</a>{% endif %}
+				{% if curr_page != 1 %}<a href="{{ request.script_root }}/admin/participants/{{ curr_page-1 }}">&lt;&lt;&lt;</a>{% endif %}
 				{% for page in range(1, pages + 1) %}
 					{% if curr_page != page %}
-						<a href="{{ request.script_root }}/admin/teams/{{ page }}">{{ page }}</a>
+						<a href="{{ request.script_root }}/admin/participants/{{ page }}">{{ page }}</a>
 					{% else %}
 						<b>{{ page }}</b>
 					{% endif %}
 				{% endfor %}
-				{% if curr_page != pages %}<a href="{{ request.script_root }}/admin/teams/{{ curr_page + 1 }}">&gt;&gt;&gt;</a>{% endif %}
+				{% if curr_page != pages %}<a href="{{ request.script_root }}/admin/participants/{{ curr_page + 1 }}">&gt;&gt;&gt;</a>{% endif %}
 			</div>
 			{% endif %}
 		</div>
@@ -259,13 +259,13 @@ function load_update_modal(id, name, email, website, affiliation, country, admin
     modal_form.find('input[name=hidden]').prop('checked', hidden);
 
 	if (id == 'new'){
-		$('#update-user-modal .modal-action').text('Create Team');
+		$('#update-user-modal .modal-action').text('Create Participant');
 	} else {
-		$('#update-user-modal .modal-action').text('Edit Team');
+		$('#update-user-modal .modal-action').text('Edit Participant');
 	}
 
 	$('#results').empty();
-	$('#update-user-modal form').attr('action', '{{ request.script_root }}/admin/team/'+id);
+	$('#update-user-modal form').attr('action', '{{ request.script_root }}/admin/participant/'+id);
 	$('#update-user-modal').modal("show");
 }
 
@@ -275,7 +275,7 @@ function load_email_modal(id){
 	modal.find('textarea').val("");
 	modal.find('input[name=id]').val(id);
 	$('#email-user-errors').empty();
-	$('#email-user form').attr('action', '{{ request.script_root }}/admin/team/'+id+'/mail');
+	$('#email-user form').attr('action', '{{ request.script_root }}/admin/participant/'+id+'/mail');
 	$('#email-user').modal();
 }
 
@@ -358,7 +358,7 @@ $(document).ready(function () {
             title: "Delete User",
             body: "Are you sure you want to delete {0}".format("<strong>" + name + "</strong>"),
             success: function () {
-                var route = script_root + '/admin/team/' + team_id + '/delete';
+                var route = script_root + '/admin/participant/' + team_id + '/delete';
                 $.post(route, {
                     nonce: nonce,
                 }, function (data) {

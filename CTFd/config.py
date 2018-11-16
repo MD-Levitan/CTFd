@@ -148,7 +148,7 @@ class Config(object):
 
 
 class TestingConfig(Config):
-    SECRET_KEY = 'AAAAAAAAAAAAAAAAAAAA'
+    SECRET_KEY = 'MAKSSS'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     TESTING = True
     DEBUG = True

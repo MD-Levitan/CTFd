@@ -18,7 +18,7 @@
 					<tr>
 						<td class="text-center"><b>ID</b>
 						</td>
-						<td><b>Team</b>
+						<td><b>Participant</b>
 						</td>
 						<td><b>Challenge</b>
 						</td>
@@ -35,7 +35,7 @@
 					<tr>
 						<td class="text-center">{{ wrong_key.id }}</td>
 						<td class="team" id="{{ wrong_key.teamid }}">
-							<a href="{{ request.script_root }}/admin/team/{{ wrong_key.teamid }}">{{ wrong_key.team_name }}</a>
+							<a href="{{ request.script_root }}/admin/participant/{{ wrong_key.teamid }}">{{ wrong_key.team_name }}</a>
 						</td>
 						<td class="chal" id="{{ wrong_key.chalid }}">
 							{{ wrong_key.chal_name }}
