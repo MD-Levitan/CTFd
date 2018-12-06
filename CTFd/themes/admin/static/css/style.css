@@ -187,7 +187,7 @@ table{
 }
 
 .theme-background {
-    background-color: #545454 !important;
+    background-color: #0a3470 !important;
 
 }
 
@@ -196,12 +196,12 @@ table{
 }
 
 .panel-theme {
-    border-color: #545454;
+    border-color: #0a3470;
 }
 
 .panel-theme > .panel-heading {
-    border-color: #545454;
-    background-color: #545454;
+    border-color: #0a3470;
+    background-color: #0a3470;
     opacity: 1;
     color: #FFF;
     text-align: center;
@@ -209,8 +209,8 @@ table{
 
 .btn-outlined.btn-theme {
     background: none;
-    color: #545454;
-    border-color: #545454;
+    color: #0a3470;
+    border-color: #0a3470;
     background-image: none;
     border: 3px solid;
 }
@@ -218,18 +218,18 @@ table{
 .btn-outlined.btn-theme:hover,
 .btn-outlined.btn-theme:active {
     color: #FFF;
-    background: #545454;
-    border-color: #545454;
+    background: #0a3470;
+    border-color: #0a3470;
 }
 
 .navbar-inverse {
-    background: none repeat scroll 0% 0% #545454;
+    background: none repeat scroll 0% 0% #0a3470;
     border: medium none;
     margin-bottom: 0px;
 }
 
 .jumbotron {
-    background-color: #545454;
+    background-color: #0a3470;
     color: #FFF;
     padding: 0px 0px 25px;
 }
